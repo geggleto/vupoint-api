@@ -1,6 +1,6 @@
 # API Stateless Services
 
-# Email Service
+## Email Service
 
 - REQUIRED
     - array to
@@ -15,3 +15,16 @@
 - EXAMPLE
 
 `curl -X POST -d "to[]=a@a.com&from=b@b.com&subject=Test&body=Test" /email`
+
+
+## Excel service
+- REQUIRED
+    - string filename
+    - array sheets
+        - string name
+        - int rows
+        - int cols
+        - array data of size [rows][cols]
+
+- EXAMPLE
+- Look at the ExcelServiceTest 
