@@ -1,5 +1,13 @@
 {
-
+    "name": "vupoint/api",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Glenn Eggleton",
+            "email": "geggleto@gmail.com",
+            "homepage": "https://glenneggleton.com"
+        }
+    ],
     "require": {
         "swiftmailer/swiftmailer": "^5.4",
         "vlucas/valitron": "^1.2",
