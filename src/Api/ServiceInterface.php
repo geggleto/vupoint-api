@@ -11,11 +11,11 @@ namespace Vupoint\Api;
 use Vupoint\Data\Payload;
 
 /**
- * Class EmailService
+ * Interface ServiceInterface
  *
- * @package Vupoint\Service
+ * @package Vupoint\Api
  */
-interface EmailServiceInterface
+interface ServiceInterface
 {
     /**
      * @param array $post
