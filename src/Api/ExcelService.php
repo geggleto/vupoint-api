@@ -25,11 +25,15 @@ class ExcelService implements ServiceInterface
     /** @var string  */
     protected $webUri;
 
-    public function __construct($webUri= '', Validator $validator, \PHPExcel $excel)
+    /** @var string */
+    protected $diskUri;
+
+    public function __construct($webUri= '', $diskUri = '', Validator $validator, \PHPExcel $excel)
     {
         $this->excel = $excel;
         $this->validator = $validator;
         $this->webUri = $webUri;
+        $this->diskUri = $diskUri;
 
         $this->validator->rule('required', ['name', 'sheets', 'sheets.*.name', 'sheets.*.data', 'sheets.*.rows', 'sheets.*.cols']);
         $this->validator->rule('array', ['sheets', 'sheets.*.data']);
@@ -51,7 +55,7 @@ class ExcelService implements ServiceInterface
             return $payload;
         }
 
-        if (!is_writable($this->webUri)) {
+        if (!is_writable($this->diskUri)) {
             $payload->setMessage("Path not writable");
             return $payload;
         }
@@ -80,14 +84,14 @@ class ExcelService implements ServiceInterface
             }
         }
 
-        $file = $this->webUri . "/" . $post['name'];
+        $file = $this->diskUri . "/" . $post['name'];
 
         $writer = new PHPExcel_Writer_Excel2007($this->excel);
         try {
             $writer->save($file);
 
             $payload->setMessage("Operation successful");
-            $payload->setPayload(["file" => $file]);
+            $payload->setPayload(["file" => $this->webUri . "/" . $post['name']]);
             $payload->setStatus("true");
 
         } catch (PHPExcel_Writer_Exception $e) {

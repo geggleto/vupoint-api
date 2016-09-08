@@ -60,12 +60,12 @@ class ExcelServiceTest extends TestCase
     public function testExcelService() {
         $data = $this->makeData();
 
-        $excelService = new ExcelService(__DIR__ . "/../../cache", new Validator($data), new \PHPExcel());
+        $excelService = new ExcelService("/web", __DIR__ . "/../../cache", new Validator($data), new \PHPExcel());
         $payload = $excelService->handleRequest($data);
 
 
         $this->assertEquals("Operation successful", $payload->getMessage());
-        $this->assertSame(["file" => __DIR__ . "/../../cache/".$data['name']], $payload->getPayload());
+        $this->assertSame(["file" => "/web/".$data['name']], $payload->getPayload());
         $this->assertEquals("true", $payload->getStatus());
         $this->assertTrue(file_exists(__DIR__."/../../cache/test.xls"));
     }
